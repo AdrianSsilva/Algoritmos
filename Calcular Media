@@ -1,0 +1,72 @@
+import java.util.Scanner;
+
+public class Algoritomo1 {
+    
+    static Scanner ler = new Scanner(System.in);
+    public static void main(String[] args){
+        var totalNotas = totalNotas();
+        var notas = lerNotas(totalNotas);
+        var media = calcularMedia(notas);
+        var situacao = mediaFinal(media);
+        diagnostico(situacao, media);
+    }
+    public static int totalNotas(){
+        while(true){
+        System.out.println("Qual o total de notas que voce deseja calcular?");
+        var totalNotas = ler.nextLine();
+        try{
+            return Integer.parseInt(totalNotas);
+        }
+        catch(NumberFormatException erro){
+            System.out.println("Tente novamente!");
+        }
+        }
+    }
+    
+    public static double[] lerNotas(int totalNotas) {
+        double[] notas = new double[totalNotas];
+        for (int i = 0; i < totalNotas; i++) {
+            while (true) {
+                System.out.println("Nota" + (i + 1) + ": ");
+                var nota = ler.nextLine();
+                try {
+                    var novaNota = Double.parseDouble(nota);
+                    if(novaNota <= 10 && novaNota >= 0){
+                        notas[i] = novaNota;
+                        break;
+                    }
+                    else{
+                        System.out.println("A nota deve ser entre 0 e 10.");
+                    }
+                } catch (NumberFormatException erro) {
+                    System.out.println("Tente novamente");
+                }
+            }
+        }
+        return notas;
+    }
+        
+     public static double calcularMedia(double[] notas) {
+        var soma = 0;
+        for (int i = 0; i < notas.length; i++) {
+            soma += notas[i];
+        }
+        var media = soma / notas.length;
+        return media;
+    }
+     
+    public static String mediaFinal(double media){
+        String situacao;
+        if(media>=6){
+            situacao = "Aprovado!";
+        }
+        else{
+            situacao = "Reprovado!";
+        }
+        return situacao;
+    }
+    public static void diagnostico(String mediaFinal, double media){
+        System.out.println("Voce foi " + mediaFinal);
+        System.out.println("Sua nota final foi: " + media);
+    }
+}
